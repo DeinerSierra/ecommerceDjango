@@ -1,11 +1,13 @@
 from django.urls import path
-from . import views
 
-app_name = 'carrito'
+from .import views
+
+app_name="carrito"
+
 urlpatterns = [
     path('', views.carro, name='carro'),
-    path('agregar_carro/<int:producto_id>/', views.agregar_al_carro, name='agregar_carro'),
-    path('remover_carro/<int:producto_id>/<int:carro_item_id>/', views.remover_carro, name='remover_carro'),
-    path('remover_carro_item/<int:producto_id>/<int:carro_item_id>/', views.remover_carro_item, name='remover_carro_item'),
+    path('add_cart/<int:product_id>/', views.add_cart, name='agregar_prtoducto'),
+    path('remove_cart/<int:product_id>/<int:cart_item_id>/', views.remove_cart, name='remove_cart'),
+    path('remove_cart_item/<int:product_id>/<int:cart_item_id>/', views.remove_cart_item, name='remove_cart_item'),
     path('checkout/', views.checkout, name='checkout'),
 ]

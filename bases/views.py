@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from tienda.models import Producto
+from carro.views import _cart_id
 
 # Create your views here.
 def home(request):

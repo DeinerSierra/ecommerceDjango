@@ -8,3 +8,5 @@ urlpatterns = [
     path('buscar/', views.buscar_producto, name='buscar_producto'),
     
 ]
+
+

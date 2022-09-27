@@ -26,7 +26,7 @@
         </aside>
         <main class="col-md-6 border-none">
 
-          <form action="{% url 'carrito:agregar_carro' producto_unitario.id %}" method="POST">
+          <form action="{% url 'carrito:agregar_prtoducto' producto_unitario.id %}" method="POST">
             {% csrf_token %}
 
             <article class="content-body">

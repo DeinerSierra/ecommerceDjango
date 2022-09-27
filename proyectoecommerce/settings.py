@@ -75,7 +75,8 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "tienda.context_processors.menu_links",
-                "carro.context_processors.contador",
+                "carro.context_processors.counter",
+                
             ],
         },
     },

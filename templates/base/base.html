@@ -92,7 +92,7 @@ $(document).ready(function() {
 					<div class="dropdown-menu">
 						<li><a href="{% url 'tienda:tienda' %}">Todos</a></li>
 						{% for categoria in links %}
-						<a class="dropdown-item" href="{{ categorias.get_url }}">{{categorias.categoria_nombre}}</a>
+						<a class="dropdown-item" href="{{ categorias.get_url }}">{{categoria.categoria_nombre}}</a>
 						{% endfor %}
 						
 					</div>
@@ -136,7 +136,7 @@ $(document).ready(function() {
 
 							<a href="{% url 'carrito:carro'%}" class="widget-header pl-3 ml-3">
 								<div class="icon icon-sm rounded-circle border"><i class="fa fa-shopping-cart"></i></div>
-								<span class="badge badge-pill badge-danger notify">{{ contador }}</span>
+								<span class="badge badge-pill badge-danger notify">{{ counter }}</span>
 							</a>
 						</div> <!-- widgets-wrap.// -->
 					</div> <!-- col.// -->
@@ -181,7 +181,7 @@ $(document).ready(function() {
 	<div class="container">
 
 		<header class="section-heading">
-			<a href="#" class="btn btn-outline-primary float-right">Ver Todo</a>
+			<a href="{% url 'tienda:tienda' %}" class="btn btn-outline-primary float-right">Ver Todo</a>
 			<h3 class="section-title text-white">Productos populares</h3>
 		</header><!-- sect-heading -->
 

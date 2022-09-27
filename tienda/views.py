@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db.models import Q
 from carro.models import CarroItem
-from carro.views import _carro_id
+from carro.views import _cart_id
 
 from tienda.models import Categoria, Producto
 
@@ -39,7 +39,7 @@ def tienda_productos(request, categoria_slug=None):
 def detalle_producto(request, categoria_slug, producto_slug):
     try:
         producto_unitario = Producto.objects.get(categoria__slug = categoria_slug, slug = producto_slug)
-        en_carro = CarroItem.objects.filter(carro__carro_id = _carro_id(request), producto = producto_unitario).exists()
+        en_carro = CarroItem.objects.filter(carro__carro_id = _cart_id(request), producto = producto_unitario).exists()
     except Exception as e:
         raise e
     contexto = {'producto_unitario': producto_unitario, 'en_carro': en_carro}
