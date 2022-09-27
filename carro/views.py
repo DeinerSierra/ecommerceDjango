@@ -90,18 +90,19 @@ def add_cart(request, product_id):
 
 
         try:
-            cart = Carro.objects.get(cart_id=_cart_id(request))
+            cart = Carro.objects.get(carro_id=_cart_id(request))
         except Carro.DoesNotExist:
             cart = Carro.objects.create(
-                cart_id = _cart_id(request)
+                
+                carro_id = _cart_id(request)
             )
         cart.save()
 
 
 
-        is_cart_item_exists = CarroItem.objects.filter(producto=product, cart=cart).exists()
+        is_cart_item_exists = CarroItem.objects.filter(producto=product, carro=cart).exists()
         if is_cart_item_exists:
-            cart_item = CarroItem.objects.filter(product=product, cart=cart)
+            cart_item = CarroItem.objects.filter(producto=product, carro=cart)
 
             ex_var_list = []
             id = []
@@ -117,7 +118,7 @@ def add_cart(request, product_id):
                   item.cantidad += 1
                   item.save()
             else:
-                item = CarroItem.objects.create(producto=product, cantidad=1, cart=cart)
+                item = CarroItem.objects.create(producto=product, cantidad=1, carro=cart)
                 if len(product_variation) > 0 :
                     item.variedad.clear()
                     item.variedad.add(*product_variation)
@@ -125,9 +126,9 @@ def add_cart(request, product_id):
 
         else:
             cart_item = CarroItem.objects.create(
-                product = product,
+                producto = product,
                 cantidad = 1,
-                cart = cart,
+                carro = cart,
             )
             if len(product_variation) > 0 :
                 cart_item.variedad.clear()
@@ -144,7 +145,7 @@ def remove_cart(request, product_id, cart_item_id):
         if request.user.is_authenticated:
             cart_item = CarroItem.objects.get(producto=product, usuario=request.user, id=cart_item_id)
         else:
-            cart = Carro.objects.get(cart_id=_cart_id(request))
+            cart = Carro.objects.get(carro_id=_cart_id(request))
             cart_item = CarroItem.objects.get(producto=product, carro=cart, id=cart_item_id)
         if cart_item.cantidad > 1:
             cart_item.cantidad -= 1
@@ -162,8 +163,8 @@ def remove_cart_item(request, product_id, cart_item_id):
     if request.user.is_authenticated:
         cart_item = CarroItem.objects.get(producto=product, usuario=request.user, id=cart_item_id)
     else:
-        cart = Carro.objects.get(cart_id=_cart_id(request))
-        cart_item = CarroItem.objects.get(producto=product, cart=cart, id=cart_item_id)
+        cart = Carro.objects.get(carro_id=_cart_id(request))
+        cart_item = CarroItem.objects.get(producto=product, carro=cart, id=cart_item_id)
 
     cart_item.delete()
     return redirect('carrito:carro')
@@ -176,8 +177,8 @@ def carro(request, total=0, cantidad=0, cart_items=None):
         if request.user.is_authenticated:
             cart_items = CarroItem.objects.filter(usuario=request.user, is_active=True)
         else:
-            cart = Carro.objects.get(cart_id=_cart_id(request))
-            cart_items = CarroItem.objects.filter(cart=cart, is_active=True)
+            cart = Carro.objects.get(carro_id=_cart_id(request))
+            cart_items = CarroItem.objects.filter(carro=cart, is_active=True)
 
         for cart_item in cart_items:
             total += (cart_item.producto.precio * cart_item.cantidad)
@@ -199,7 +200,7 @@ def carro(request, total=0, cantidad=0, cart_items=None):
     return render(request, 'carro/carro.html', context)
 
 
-@login_required(login_url='login')
+@login_required(login_url='usuarios:login')
 def checkout(request, total=0, cantidad=0, cart_items=None):
     tax = 0
     grand_total = 0
@@ -208,7 +209,7 @@ def checkout(request, total=0, cantidad=0, cart_items=None):
         if request.user.is_authenticated:
             cart_items = CarroItem.objects.filter(usuario=request.user, is_active=True)
         else:
-            cart = Carro.objects.get(cart_id=_cart_id(request))
+            cart = Carro.objects.get(carro_id=_cart_id(request))
             cart_items = CarroItem.objects.filter(carro=cart, is_active=True)
 
 

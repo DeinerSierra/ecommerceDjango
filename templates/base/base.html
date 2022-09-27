@@ -121,15 +121,15 @@ $(document).ready(function() {
 							<div class="widget-header">
 								
 								<div class="mt-1 pt-auto">
-									<a href="{% url 'login' %}" class="btn btn-info text-white  mr-2">Login</a>
-									<a href="{% url 'registrar' %}" class="btn btn-info text-white"> Registrar</a>
+									<a href="{% url 'usuarios:login' %}" class="btn btn-info text-white  mr-2">Login</a>
+									<a href="{% url 'usuarios:registrar' %}" class="btn btn-info text-white"> Registrar</a>
 								</div>
 							</div>
 							{% else %}
 							<div class="widget-header">
 								<div> 
 									<a href="#" class="btn btn-info text-white">Dashboard</a> <span class="dark-transp"> | </span>
-									<a href="{% url 'logout' %}" class="btn btn-info text-white"> Salir</a>
+									<a href="{% url 'usuarios:logout' %}" class="btn btn-info text-white"> Salir</a>
 								</div>
 							</div>
 							{% endif %}

@@ -71,17 +71,17 @@ def login(request):
             return redirect('bases:home')
         else:
             messages.error(request,'Crendenciales incorrectas')
-            return redirect('login')
+            return redirect('usuarios:login')
     return render(request, 'usuarios/login.html')
 
 
 
-@login_required(login_url='login')
+@login_required(login_url='usuarios:login')
 def logout(request):
     auth.logout(request)
     messages.success(request, 'Has salido de sesion')
 
-    return redirect('login')
+    return redirect('usuarios:login')
 
 def activar(request, uidb64, token):
     try:
@@ -94,10 +94,10 @@ def activar(request, uidb64, token):
         user.is_active = True
         user.save()
         messages.success(request, 'Usuario activado')
-        return redirect('login')
+        return redirect('usuarios:login')
     else:
         messages.error(request, 'Usuario no activado')
-        return redirect('registrar')
+        return redirect('usuarios:registrar')
     
 
         

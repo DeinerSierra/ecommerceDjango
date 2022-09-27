@@ -13,7 +13,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 import os
 from django.contrib.messages import constants as messages
-
+import dj_database_url
+from decouple import config
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -30,9 +31,9 @@ TEMPLATE_PATH = os.path.join(BASE_DIR, "templates")
 SECRET_KEY = "django-insecure-^b=z5=!d)bd!o90p!l_3_23zir1vyrg(2t(^2!77gwx4d12cn0"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -59,6 +60,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = "proyectoecommerce.urls"
@@ -90,10 +92,10 @@ AUTH_USER_MODEL = 'usuarios.Cuenta'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    
+        "default": dj_database_url.config(default=config('DATABASE_URL')),
+        
+   
 }
 
 
@@ -147,11 +149,13 @@ MESSAGES_TAGS = {
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'deiner.sierra@gmail.com'
-EMAIL_HOST_PASSWORD = '199330Deiner'
+EMAIL_HOST_USER = 'correo@correo.com'
+EMAIL_HOST_PASSWORD = '12345'
 EMAIL_USE_TLS = True
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
